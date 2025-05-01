@@ -1,31 +1,57 @@
-# Movie Recommendation System
-This project leverages Streamlit for the front-end interface and employs TF-IDF vectorization along with natural language processing (NLP) techniques to provide personalized movie recommendations.
+# 🎬 Movie Recs with Streamlit
 
-![Project screenshot](/mrc.png)
+An interactive movie recommendation system built using Python and Streamlit. It uses TF-IDF vectorization and basic NLP techniques to recommend movies based on similarity in descriptions and metadata.
 
-## Introduction:
-The Movie Recommendation System is designed to help users discover movies that match their tastes. By analyzing movie descriptions and metadata using TF-IDF vectorization, the system can suggest movies similar to those which have similar keywords or taglines.
+![App Screenshot](ss.png)
 
-## Features:
-**Content-Based Filtering:** Uses TF-IDF vectorization to analyze movie descriptions and compute similarity scores.
+## 🚀 Overview
 
-**Interactive Interface:** Built with Streamlit, providing an easy-to-use and interactive web interface.
+This project aims to suggest movies that align with a user's preferences by analyzing content similarities. By computing cosine similarity scores through TF-IDF, the system generates intelligent, content-based movie suggestions through a Streamlit interface.
 
-## Installation:
-Follow these steps to set up the project locally:
-#### Clone the repository:
+## 🔍 Features
+
+- **Content-Based Filtering**: Utilizes TF-IDF to analyze movie overviews and generate similarity scores.
+- **Simple UI**: Built with Streamlit for an intuitive and lightweight user experience.
+- **Poster Display**: Uses The Movie Database (TMDb) API to fetch movie posters dynamically.
+
+## 🛠️ Installation
+
+To run this project locally, follow these steps:
+
+### 1. Clone this repository
+
+```bash
+git clone https://github.com/annie-2314/movie-recs-streamlit.git
+cd movie-recs-streamlit
 ```
-git clone https://github.com/RounakS33/movie_recommendation_system.git
-cd movie_recommendation_system
-```
-#### Install the required dependencies:
-```
+
+### 2. Install the dependencies
+
+```bash
 pip install -r requirements.txt
 ```
-## Usage:
-#### Run the Streamlit app:
-```
+
+## ▶️ How to Use
+
+Start the application using:
+
+```bash
 streamlit run app.py
 ```
-## Technologies Used:
-Natural Language Processing (NLP), Python, Jupyter Notebook
+
+Once running, open the app in your browser. Select a movie from the dropdown to get a list of recommended movies along with their posters.
+
+## 📚 Technologies Used
+
+- Python
+- Streamlit
+- TF-IDF Vectorization
+- NLP (Natural Language Processing)
+- Cosine Similarity
+- TMDb API
+- Pandas
+
+---
+
+👤 **Project by:** Annie Siri  
+📌 Educational demo for movie recommendation based on content similarity.

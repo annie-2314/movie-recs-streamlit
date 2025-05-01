@@ -2,12 +2,13 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
+import base64
 
 df = pickle.load(open("movies.pkl", "rb"))
 df = pd.DataFrame(df)
 cs = pickle.load(open("cs.pkl", "rb"))
 
-
+# Function to fetch movie poster
 def fetch_poster(MOVIE_ID):
     API_KEY = "6582af9236100db9aa52fa072a1ed070"
     url = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=en-US'
@@ -19,7 +20,7 @@ def fetch_poster(MOVIE_ID):
             return f"https://image.tmdb.org/t/p/w500/{poster_path}"
     return None
 
-
+# Function to recommend similar movies
 def recommend(movie):
     idx = df[df["title"] == movie].index[0]
     dist = cs[idx]
@@ -30,11 +31,13 @@ def recommend(movie):
         m_list.append((df.iloc[i]["id"], df.iloc[i]["title"]))
     return m_list
 
+# Title
+st.markdown("<h1 style='color:white;'>🎥 TMDb Movie Recommendation Engine</h1>", unsafe_allow_html=True)
 
-st.title("Get new recommendations based on your favourite movies!")
-
+# Movie selection
 sel_movie = st.selectbox("Choose a movie:", df["title"].values)
 
+# Display recommendations on button click
 if st.button("Show recommendations"):
     rcm = recommend(sel_movie)
     cols = st.columns(5)
@@ -42,10 +45,12 @@ if st.button("Show recommendations"):
         with cols[i]:
             poster_url = fetch_poster(rcm[i][0])
             if poster_url:
-                st.image(poster_url, caption=rcm[i][1], use_column_width=True)
+                st.image(poster_url, caption=rcm[i][1], use_container_width=True)  # Update here
+                
             else:
                 st.write("No poster available for " + rcm[i][1])
 
+# Footer
 centered_footer = """
 <style>
 .footer {
@@ -59,7 +64,7 @@ centered_footer = """
     font-size: 14px;
 }
 .footer a {
-    color: #0e1117;
+    color: black;
     text-decoration: none;
 }
 </style>
@@ -68,3 +73,27 @@ centered_footer = """
 </div>
 """
 st.markdown(centered_footer, unsafe_allow_html=True)
+
+# Function to encode local image to base64 (Optional: only if you want to use base64 method)
+def get_base64_bg(file_path):
+    with open(file_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# Set a background image using CSS (choose one method, here we are using base64 encoding)
+bg_base64 = get_base64_bg("bg.png")  # Adjust path if necessary
+
+# CSS with base64-encoded image
+bg_css = f"""
+<style>
+.stApp {{
+    background-image: url("data:image/png;base64,{bg_base64}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}}
+</style>
+"""
+
+# Apply the CSS for the background image
+st.markdown(bg_css, unsafe_allow_html=True)
